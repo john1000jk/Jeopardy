@@ -1,73 +1,47 @@
-/* .div-table {
-  display: table;         
-  width: auto;         
-  background-color: #eee;         
-  border: 1px solid #666666;         
-  border-spacing: 5px; 
-} 
-.div-table-row {
-  display: table-row;
-  width: auto;
-  clear: both;
-}
-.div-table-col {
-  float: left; 
-  display: table-column;         
-  width: 200px;         
-  background-color: #ccc;  
-}
-*/
+@import url(//db.onlinewebfonts.com/c/e3e3a81b2544f4508a75573a04e0cafa?family=ITC+Korinna);
 
-.title {
+.cat-row {
+  font-family: 'ITC Korinna';
+}
+
+.div-table {
+  background: rgb(27, 27, 202);
+}
+
+.ult {
+  opacity: 0;
+  pointer-events:none;
+  transition: opacity 0.5s;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgb(27, 27, 202);
+  position: fixed;
+  font-family: 'ITC Korinna';
+  font-size: 2vw;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.large {
-  position: absolute;
-  z-index: 1;
-  background-color: mediumblue;
-  padding-top: 25px;
-  text-align: center;
-  color: white;
-  font-size: 40px;
+.ult.visible {
+  opacity: 1;
+  pointer-events:initial;
 }
 
-.largeBody {
-  margin: auto;
-  width: 50%;
-  text-align: center;
-}
-
-table {
-  background-color: white;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1000px;
-  border-spacing: 3px;
-  border: 0px;
-  border-color: black;
-}
-
-td {
-  margin: 4px;
-  padding: 4px;
-  border: 0px;
-  text-align: center;
-  background-color: mediumblue;
-  color: white;
-}
-
-tr {
-  margin: 4px;
-  border: 0px;
-}
-
-.fill {
-  border: 1px ridge orange; /* added */
-  clear: both;
-  width: 100%;
-  border-right: 1px ridge #999;
-  margin-bottom: 20px;
+.filled {
   height: 100%;
-  position: absolute; /* added */
+  width: 100%;
+}
+
+.width-40 {
+  width: 40%;
+}
+
+.white-b {
+  background: white !important;
+  color: rgb(27, 27, 202) !important;
+  border-color: rgb(27, 27, 202) !important;
 }
