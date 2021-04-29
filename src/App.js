@@ -29,8 +29,6 @@ App.compareStrings = function(str1, str2) {
 
   let str1_words = str1l.split(/(\s+)/);
   let str2_words = str2l.split(/(\s+)/);
-  console.log(str1_words);
-  console.log(str1_words.join(''));
   if (str1_words[0] in articles) {
     if (str1_words.slice(2).join('') === str2_words.join('') || str1_words.slice(2).join('') === str2_words.slice(2).join('')) {
       return true;
@@ -42,5 +40,13 @@ App.compareStrings = function(str1, str2) {
   }
   return false;
 }
+
+App.cleanText = function(str) {
+  var div = document.createElement("div");
+  div.innerHTML = str;
+  return div.innerText;
+}
+
+
 
 export const status = { "unclicked": 0, "clicked": 1, "answered": 2};

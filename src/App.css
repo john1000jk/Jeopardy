@@ -16,10 +16,11 @@
   right: 0;
   top: 0;
   bottom: 0;
+  /* overflow-y:scroll; */
   background: rgb(27, 27, 202);
   position: fixed;
   font-family: 'ITC Korinna';
-  font-size: 2vw;
+  font-size: 1.5vw;
   text-align: center;
   display: flex;
   align-items: center;
@@ -44,4 +45,28 @@
   background: white !important;
   color: rgb(27, 27, 202) !important;
   border-color: rgb(27, 27, 202) !important;
+}
+
+.submit-btn {
+  font-size: 24px !important;
+}
+
+.correct-btn {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.score {
+  font-size: 20px !important;
+}
+
+.score-container {
+  height: 400px;
+}
+
+.painting {
+  max-height:500px;
+  max-width:500px;
+  height:auto;
+  width:auto;
 }

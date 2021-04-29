@@ -5,7 +5,7 @@ import { Card } from 'react-bootstrap';
 export default class ClueView extends Component {
   constructor(props) {
     super(props);
-    this.state = { correct: false }
+    this.state = { }
   }
 
   handleClick() {
@@ -30,16 +30,23 @@ export default class ClueView extends Component {
       case true:
         return (
           <div>
-          <p>
-            C: {this.props.answer}
-          </p>
-          <p>
-            Y: {this.props.input}
-          </p>
-          <p>
-            {this.props.correct ? "You are Correct" : "You are incorrect"}
-          </p>
-      </div>
+            <p className="my-1">
+              C: {this.props.answer}
+            </p>
+            <p className="my-1">
+              Y: {this.props.input}
+            </p>
+            <p className="my-1">
+              {this.props.correctness === Correctness.correct ? "You are Correct" : "You are incorrect"}
+            </p>
+            {this.props.correctness !== Correctness.correct ? 
+            <button className="btn white-b mx-0 correct-btn" 
+              onClick={this.props.updateCorrectness}>
+              <p className="m-0 p-0">
+                MARK AS CORRECT!
+              </p>
+            </button> : ""}
+          </div>
         )
     }
   }
@@ -52,3 +59,5 @@ export default class ClueView extends Component {
     )
   }
 }
+
+export const Correctness = {correct: 0, incorrect: 1, skip: 2}
