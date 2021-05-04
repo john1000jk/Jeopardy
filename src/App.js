@@ -1,25 +1,26 @@
 import 'App.css';
-import React, { Component } from 'react';
-import BoardView from 'components/BoardView.js';
+import React, { Component, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import JumboView from 'components/JumboView.js';
+import 'react-calendar/dist/Calendar.css';
+import Home from 'components/Home/Calendar.js'
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state={answer: false, obj: null};
   }
 
   render() {
     return (
-      <div className="first">
-        <BoardView fn={(object) => this.enableClue(object)} date={new Date('December 17, 2014 00:00:00')} />
+      <div>
+        <Home/>
       </div>
     );
   }
 }
 
-App.compareStrings = function(str1, str2) {
+
+
+App.compareStrings = function (str1, str2) {
   let str1l = str1.toLowerCase();
   let str2l = str2.toLowerCase();
   if (str1l === str2l.toLowerCase()) {
@@ -41,7 +42,7 @@ App.compareStrings = function(str1, str2) {
   return false;
 }
 
-App.cleanText = function(str) {
+App.cleanText = function (str) {
   var div = document.createElement("div");
   div.innerHTML = str;
   return div.innerText;
@@ -49,4 +50,4 @@ App.cleanText = function(str) {
 
 
 
-export const status = { "unclicked": 0, "clicked": 1, "answered": 2};
+export const status = { "unclicked": 0, "clicked": 1, "answered": 2 };

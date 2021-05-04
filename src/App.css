@@ -8,6 +8,16 @@
   background: rgb(27, 27, 202);
 }
 
+.unfinished {
+  background: rgb(27, 27, 202);
+  color: white;
+}
+
+.finished {
+  background: white;
+  color: rgb(27, 27, 202);
+}
+
 .ult {
   opacity: 0;
   pointer-events:none;
@@ -69,4 +79,26 @@
   max-width:500px;
   height:auto;
   width:auto;
+}
+
+.textareaJV {
+  width: 220px;
+}
+
+.round2 {
+  box-shadow: none !important;
+}
+
+.cardy {
+  width: '18rem';
+}
+
+.no-border {
+  border: none !important
+}
+
+.cloud {
+  max-height: 300px;
+  max-width: 300px;
+ 
 }

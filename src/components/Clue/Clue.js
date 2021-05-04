@@ -19,3 +19,11 @@ Clue.getClues = async(date) => {
     })
     return result;
 }
+
+Clue.getClues2 = async(month, day, year) => {
+  const result = await axios({
+    method: 'get',
+    url: 'https://jarchive-json.glitch.me/game/' + month + "/" + day + "/" + year,
+  })
+  return result;
+}

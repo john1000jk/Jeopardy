@@ -19,6 +19,9 @@ Art.getRandomPainting = async(category) => {
     console.log(result.data);
     var data = Art.shuffle(result.data.records);
     for (let i = 0; i < data.length; i++) {
+      if (!data[i].images) {
+        break;
+      }
       if (data[i].images.length != 0) {
         let painting = data[i].images[Math.floor(Math.random() * data[i].images.length)].baseimageurl;
         console.log(painting);

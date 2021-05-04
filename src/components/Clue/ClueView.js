@@ -16,7 +16,7 @@ export default class ClueView extends Component {
     switch (this.props.clicked) {
       case false:
         return (
-          <div className={"r" + this.props.row + " " + "c" + this.props.col + " " + "div-table-col"} onClick={() => {
+          <td className={"unfinished"} onClick={() => {
             this.handleClick();
           }}>
             <div className="cHeader">
@@ -25,11 +25,11 @@ export default class ClueView extends Component {
             <div className="cBody">
               <p>Click to start answer</p>
             </div>
-          </div>
+          </td>
         )
       case true:
         return (
-          <div>
+          <td className="finished">
             <p className="my-1">
               C: {this.props.answer}
             </p>
@@ -41,21 +41,21 @@ export default class ClueView extends Component {
             </p>
             {this.props.correctness !== Correctness.correct ? 
             <button className="btn white-b mx-0 correct-btn" 
-              onClick={this.props.updateCorrectness}>
+              onClick={() => this.props.updateCorrectness()}>
               <p className="m-0 p-0">
                 MARK AS CORRECT!
               </p>
             </button> : ""}
-          </div>
+          </td>
         )
     }
   }
 
   render() {
     return (
-      <td id={"r" + this.props.row + "c" + this.props.col}>
+      <React.Fragment>
         {this.renderSwitch()}
-      </td>
+      </React.Fragment>
     )
   }
 }
