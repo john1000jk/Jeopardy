@@ -20,7 +20,6 @@ export default class ScoreReport extends Component {
   }
 
   render() {
-    // console.log(this.props.score);
     return (
       <Container className="score-container">
         <Row className="justify-content-md-center">
@@ -40,7 +39,6 @@ export default class ScoreReport extends Component {
                 <Card.Text className="mx-2 my-4">
                   Blank Answers: {this.props.numSkip}
                 </Card.Text>
-                {/* <Button variant="outline-dark" className="mx-2 round2" onClick={() => this.props.updateRound(2)}>Round 2?</Button> */}
                 <Button variant="outline-dark" className="my-3 mx-auto" onClick={this.props.deinitialize}>
                   Return to Calendar View
                 </Button>

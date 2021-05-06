@@ -7,38 +7,29 @@ import Clue from 'components/Clue/Clue.js';
 import { Correctness } from 'components/Clue/ClueView.js';
 import { Col, Container, Image, Row, Table, Button, Card } from 'react-bootstrap';
 import JumboView from 'components/Board/JumboView.js';
+import * as ROUTES from 'constants/routes';
+import { withRouter } from 'react-router-dom';
 
-export default class BoardView extends Component {
+class BoardView extends Component {
   constructor(props) {
     super(props);
-    this.state = { clues: [], clues2: null, finishedClues: [], round: 1, obj: null, score: 0, intermission: false, numCorrect: 0, numIncorrect: 0, numSkip: 0, date: this.props.date }
-    this.testLength = 30;
+    this.state = { clues: [], clues2: null, finishedClues: [], obj: null, score: 0, numCorrect: 0, numIncorrect: 0, numSkip: 0, date: (new Date(this.props.match.params.date)).toDateString() }
+    this.testLength = 5;
   }
   async componentDidMount() {
     let data = await Clue.getClues(this.state.date);
     this.setState({ clues: this.make2dArr(data.data.slice(0, 30)), clues2: this.make2dArr(data.data.slice(30, 60)) });
-
-    // let data = await Clue.getClues2(12, 17, 2014);
-    // console.log(data.data);
-    // this.setState({ clues: this.make2dArr(data.data.jeopardy), clues2: this.make2dArr(data.data["double jeopardy"]) });
   }
 
   async componentDidUpdate(prevprops) {
-    if (this.props.date != prevprops.date) {
-      let data = await Clue.getClues(this.props.date);
+    if (this.props.match.params.date != prevprops.match.params.date) {
+      let data = await Clue.getClues(this.props.match.params.date);
       if (data.data.length > 0) {
-        this.setState({ clues: this.make2dArr(data.data.slice(0, 30)), clues2: this.make2dArr(data.data.slice(30, 60)), date: this.props.date });
+        this.setState({ clues: this.make2dArr(data.data.slice(0, 30)), clues2: this.make2dArr(data.data.slice(30, 60)), date: (new Date(this.props.match.params.date)).toDateString() });
       } else {
-        this.setState({ date: this.props.date });
+        this.setState({ date: (new Date(this.props.match.params.date)).toDateString() });
       }
     }
-  }
-
-  updateRound(round) {
-    this.testLength = 2 * this.testLength;
-    console.log(this.state.clues);
-    console.log(this.state.clues2);
-    this.setState({ round: round, clues: this.state.clues2, obj: null, intermission: false });
   }
 
   make2dArr(arr) {
@@ -54,26 +45,23 @@ export default class BoardView extends Component {
   }
 
   // adds clue to list of finished clues and updates score
-  updateBoard(answer, input, row, col, skip = false) {
+  async updateBoard(answer, input, row, col, skip = false) {
     let newScore = this.state.score;
-    let isCorrect = App.compareStrings(App.cleanText(answer), input);
+    let isCorrect = await App.compareStrings(App.cleanText(answer), input);
     let nC = 0;
     let nI = 0;
     let nB = 1;
     let correctness = Correctness.skip;
-    if (this.state.finishedClues.length == this.testLength - 1) {
-      this.setState({ intermission: true });
-    }
     if (!skip) {
       nB = 0;
       if (isCorrect) {
         correctness = Correctness.correct;
         nC = 1;
-        newScore += this.state.round * (row + 1) * 200;
+        newScore += (row + 1) * 200;
       } else {
         correctness = Correctness.incorrect;
         nI = 1;
-        newScore -= this.state.round * (row + 1) * 200;
+        newScore -= (row + 1) * 200;
       }
     }
     // console.log(correctness);
@@ -100,11 +88,11 @@ export default class BoardView extends Component {
         break;
       case Correctness.incorrect:
         nI = -1;
-        newScore += 2 * this.state.round * (row + 1) * 200;
+        newScore += 2 * (row + 1) * 200;
         break;
       case Correctness.skip:
         nB = -1;
-        newScore += this.state.round * (row + 1) * 200;
+        newScore += (row + 1) * 200;
         break;
     }
     clue.correctness = Correctness.correct;
@@ -145,9 +133,9 @@ export default class BoardView extends Component {
         <Container className="text-center m-3 mx-auto">
           <Row>
             <Col xs={3}></Col>
-            <Col><h3>Jeopardy on {this.state.date.toDateString()}</h3></Col>
+            <Col><h3>Jeopardy on {this.state.date}</h3></Col>
             <Col xs={2} className="score">
-              {this.state.clues.length > 0 ? <p>
+              {this.state.clues.length > 0 && (!this.state.finishedClues | this.state.finishedClues.length < this.testLength) ? <p>
                 Score: {this.state.score}
               </p> : ""}
             </Col>
@@ -197,21 +185,20 @@ export default class BoardView extends Component {
                 <Col xs={1}></Col>
               </Row>
               <Container className="text-center mx-auto">
-                <Button variant="outline-dark" className="my-3 mx-auto" onClick={this.props.deinitialize}>
+                <Button variant="outline-dark" className="my-3 mx-auto" onClick={() => this.props.history.push(ROUTES.HOME)}>
                   Return to Calendar View
                 </Button>
               </Container>
             </Container> :
               <ScoreReport score={this.state.score} numCorrect={this.state.numCorrect}
                 numIncorrect={this.state.numIncorrect} numSkip={this.state.numSkip} cat={this.getRandomCat()}
-                updateRound={(round) => this.updateRound(round)} 
-                deinitialize={this.props.deinitialize}/>
+                deinitialize={() => this.props.history.push(ROUTES.HOME)} />
             }
             <JumboView obj={this.state.obj} row={this.state.row} col={this.state.col} update={(answer, input, row, col, skip = false) => this.updateBoard(answer, input, row, col, skip)} />
           </React.Fragment> :
           <React.Fragment>
             {this.state.clues2 != null ?
-            <NotFound date={this.state.date.toDateString()} deinitialize={this.props.deinitialize} /> :
+            <NotFound date={this.state.date} deinitialize={() => this.props.history.push(ROUTES.HOME)} /> :
             ""}
           </React.Fragment>
           }
@@ -256,3 +243,5 @@ class Category extends Component {
     )
   }
 }
+
+export default withRouter(BoardView);

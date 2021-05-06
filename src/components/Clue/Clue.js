@@ -7,13 +7,14 @@ export default class Clue {
 }
 
 Clue.getClues = async(date) => {
+    var dateObj = new Date(date);
     var nextDay = new Date(date);
-    nextDay.setDate(date.getDate() + 1);
+    nextDay.setDate(dateObj.getDate() + 1);
     const result = await axios({
         method: 'get',
         url: 'http://jservice.io/api/clues',
         params: {
-            min_date: date,
+            min_date: dateObj,
             max_date: nextDay,
         }
     })
