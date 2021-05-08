@@ -29,7 +29,7 @@ export default class ClueView extends Component {
         )
       case true:
         return (
-          <td className="unfinished">
+          <td className="finished">
             <p className="my-1">
               C: {this.props.answer}
             </p>
@@ -55,7 +55,7 @@ export default class ClueView extends Component {
     return (
       <React.Fragment>
         {this.props.obj.title==="No Clue Given" ?
-        <td className={"unfinished"} onClick={() => {
+        <td className={"finished"} onClick={() => {
           this.handleClick();
         }}>
           <div className="cHeader">

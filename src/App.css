@@ -13,10 +13,10 @@
   color: white;
 }
 
-/* .finished {
-  background: white ;
+.finished {
+  background: white !important;
   color: rgb(27, 27, 202);
-} */
+}
 
 .ult {
   opacity: 0;
