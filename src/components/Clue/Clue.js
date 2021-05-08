@@ -12,7 +12,7 @@ Clue.getClues = async(date) => {
     nextDay.setDate(dateObj.getDate() + 1);
     const result = await axios({
         method: 'get',
-        url: 'http://jservice.io/api/clues',
+        url: 'https://jservice.io/api/clues',
         params: {
             min_date: dateObj,
             max_date: nextDay,
