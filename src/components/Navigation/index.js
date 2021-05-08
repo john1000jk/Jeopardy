@@ -43,11 +43,11 @@ const NavigationAuth = () => (
 const NavigationNonAuth = () => (
   <React.Fragment>
     <Nav className="mr-auto">
-      <LinkContainer to={ROUTES.LANDING}>
-        <Nav.Link>Landing</Nav.Link>
-      </LinkContainer>
       <LinkContainer to={ROUTES.SIGN_IN}>
         <Nav.Link>Sign In</Nav.Link>
+      </LinkContainer>
+      <LinkContainer to={ROUTES.SIGN_UP}>
+        <Nav.Link>Sign Up</Nav.Link>
       </LinkContainer>
     </Nav>
   </React.Fragment>

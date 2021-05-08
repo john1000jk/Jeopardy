@@ -18,7 +18,50 @@ class BoardView extends Component {
   }
   async componentDidMount() {
     let data = await Clue.getClues(this.state.date);
-    this.setState({ clues: this.make2dArr(data.data.slice(0, 30)), clues2: this.make2dArr(data.data.slice(30, 60)) });
+    // console.log(data.data);
+    let finArr = this.cleanData(data.data);
+    this.setState({ clues: this.make2dArr(finArr), clues2: this.make2dArr(data.data.slice(30, 60)) });
+  }
+
+  cleanData(data) {
+    function removeDuplicatesBy(array, keyFn) {
+      var mySet = new Set();
+      return array.filter(function(x) {
+          var key = keyFn(x), isNew = !mySet.has(key);
+          if (isNew) mySet.add(key);
+          return isNew;
+      });
+    }
+    var uQuestionBase = removeDuplicatesBy(data, function(p){ return p.question; });
+    var uQuestion = removeDuplicatesBy(data, function(p){ return p.answer; });
+    var categories = removeDuplicatesBy(uQuestion, function(p){ return p.category.title; });
+    categories = categories.map(currElem => currElem.category.title)
+    // while (categories.length < 6) {
+    //   categories.push("blankCat" + 6 - categories.length)
+    // }
+    const cluesByCat = {};
+    let count = 0;
+    for (let i = 0; i < categories.length; i++) {
+      cluesByCat[categories[i]] = [];
+    }
+    for (let i = 0; i < uQuestion.length; i++) {
+      cluesByCat[uQuestion[i].category.title].push(uQuestion[i]);
+      count++;
+    }
+    const finArr = [];
+    for (let j = 0; j < 5; j++) {
+      for (let i = 0; i < categories.length; i++) {
+        if (cluesByCat[categories[i]][j]) {
+          finArr.push(cluesByCat[categories[i]][j])
+        } else {
+          finArr.push({"title": "No Clue Given"})
+        }
+      }
+    }
+    for (let i = 0; i < finArr.length; i++) {
+      console.log(finArr[i]);
+    }
+    return finArr;
   }
 
   async componentDidUpdate(prevprops) {
@@ -81,7 +124,6 @@ class BoardView extends Component {
     let nB = 0;
     // console.log(clue);
     let newScore = this.state.score;
-    console.log(clue.correctness);
     switch (clue.correctness) {
       case Correctness.correct:
         nC = 0;
@@ -101,9 +143,6 @@ class BoardView extends Component {
       finishedClues: finishedClues, score: newScore, numCorrect: this.state.numCorrect + nC,
       numIncorrect: this.state.numIncorrect + nI, numSkip: this.state.numSkip + nB
     });
-    console.log(nB);
-
-    console.log(this.state.numSkip);
   }
 
   // causes jumboview to appear with given row info

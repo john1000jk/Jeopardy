@@ -54,7 +54,17 @@ export default class ClueView extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.renderSwitch()}
+        {this.props.obj.title==="No Clue Given" ?
+        <td className={"finished"} onClick={() => {
+          this.handleClick();
+        }}>
+          <div className="cHeader">
+            <p className="cDollar">{"$" + ((this.props.row + 1) * 200)}</p>
+          </div>
+          <div className="cBody">
+            <p>NO CLUE GIVEN</p>
+          </div>
+        </td>: this.renderSwitch()}
       </React.Fragment>
     )
   }

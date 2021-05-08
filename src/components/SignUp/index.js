@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import "App.css";
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import { Button } from 'react-bootstrap';
 
 const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
-    <SignUpForm />
+  <div className="auth-wrapper py-2">
+    <div className="auth-inner">    
+      <h3>Sign Up</h3>
+      <SignUpForm />
+    </div>
   </div>
 );
 
@@ -63,38 +67,53 @@ class SignUpFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            className="form-control"
+            name="username"
+            value={username}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Enter username"
+          />
+        </div>
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            className="form-control"
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Enter email address"
         />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            className="form-control"
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Enter Password"
+          />
+        </div>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            className="form-control"
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Confirm password"
+          />
+         </div>
+        <Button variant="outline-dark" className="my-1" disabled={isInvalid} type="submit">
           Sign Up
-        </button>
-
+        </Button>
         {error && <p>{error.message}</p>}
       </form>
     );
@@ -103,11 +122,12 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.HOME}>Sign Up</Link>
+    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 );
 
 const SignUpForm = withRouter(withFirebase(SignUpFormBase));
+
 
 export default SignUpPage;
 

@@ -19,7 +19,6 @@ class Home extends Component {
 
   render() {
     let match = this.props.match;
-    console.log(this.props.location);
     return (
       <React.Fragment>
         {this.props.location.pathname == "/home" ?

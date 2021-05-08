@@ -11,7 +11,6 @@ export default class ScoreReport extends Component {
 
   async componentDidMount() {
     let painting = await Art.getRandomPainting(this.props.cat);
-    console.log(this.props.cat);
     this.setState({ painting: painting });
   }
 

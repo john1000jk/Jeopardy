@@ -39,6 +39,21 @@ class Firebase {
     return this.auth.currentUser.updatePassword(password);
   };
 
+
+  doSignInWithGoogle = () => {
+    var provider = new app.auth.GoogleAuthProvider();
+    return this.auth.signInWithPopup(provider);
+  };
+
+  doSignInWithFacebook = () => {
+    var provider = new app.auth.FacebookAuthProvider();
+    return this.auth.signInWithPopup(provider);
+  };
+
+  doSignInWithGithub = () => {
+    var provider = new app.auth.GithubAuthProvider();
+    return this.auth.signInWithPopup(provider);
+  };
 }
 
 export default Firebase;

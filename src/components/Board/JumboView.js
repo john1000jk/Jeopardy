@@ -76,7 +76,6 @@ export default class JumboView extends Component {
 
   keyPress(e) {
     if (e.keyCode == 13) {
-      console.log(e);
       this.handleSubmit(e);
       e.preventDefault();
     }
