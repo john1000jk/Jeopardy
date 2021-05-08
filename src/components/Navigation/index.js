@@ -32,9 +32,6 @@ const NavigationAuth = () => (
       <LinkContainer to={ROUTES.HOME}>
         <Nav.Link>Home</Nav.Link>
       </LinkContainer>
-      <LinkContainer to={ROUTES.ACCOUNT}>
-        <Nav.Link>Account</Nav.Link>
-      </LinkContainer>
     </Nav>
     <SignOutButton />
   </React.Fragment>
