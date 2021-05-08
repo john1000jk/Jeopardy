@@ -4,7 +4,7 @@ import { withFirebase } from 'components/Firebase';
 import { Button } from 'react-bootstrap';
  
 const GoogleButtonBase = ({ firebase, fn },) => (
-  <Button variant="outline-dark" size="sm" className="my-1" onClick={() => {
+  <Button variant="outline-dark" className="my-1" onClick={() => {
     firebase.doSignInWithGoogle()
     .then((user) => {
       fn();

@@ -14,7 +14,7 @@ class BoardView extends Component {
   constructor(props) {
     super(props);
     this.state = { clues: [], clues2: null, finishedClues: [], obj: null, score: 0, numCorrect: 0, numIncorrect: 0, numSkip: 0, date: (new Date(this.props.match.params.date)).toDateString() }
-    this.testLength = 5;
+    this.testLength = 30;
   }
   async componentDidMount() {
     let data = await Clue.getClues(this.state.date);

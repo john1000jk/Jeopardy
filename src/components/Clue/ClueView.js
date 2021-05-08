@@ -55,9 +55,7 @@ export default class ClueView extends Component {
     return (
       <React.Fragment>
         {this.props.obj.title==="No Clue Given" ?
-        <td className={"finished"} onClick={() => {
-          this.handleClick();
-        }}>
+        <td className={"finished"}>
           <div className="cHeader">
             <p className="cDollar">{"$" + ((this.props.row + 1) * 200)}</p>
           </div>
